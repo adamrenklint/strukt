@@ -1,4 +1,5 @@
-(ns strukt.core)
+(ns strukt.core
+  (:require prost.core))
 
 (defmacro strukt*
   [name type spec primary defaults]
