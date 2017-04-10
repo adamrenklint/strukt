@@ -35,7 +35,7 @@
 (task-options!
   pom {:project     project
        :version     version
-       :description "Pre and post condition assertion helpers for ClojureScript with useful errors"
+       :description "ClojureScript map factory with shape validation using prost and cljs.spec"
        :url         "https://github.com/adamrenklint/strukt"
        :scm         {:url "https://github.com/adamrenklint/strukt"}
        :license     {"MIT" "https://github.com/adamrenklint/strukt/blob/master/LICENSE"}})
