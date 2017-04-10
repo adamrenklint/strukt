@@ -15,6 +15,27 @@
 (s/def ::fooish (s/keys :opt-un [::one ::two ::three]))
 (defstrukt foo ::fooish :two {:one 42 :two :fourty-two})
 
+; (defrecord Fooish [one])
+(defn make-foo [attrs]
+  (specify attrs
+    IAssociative
+    (-assoc [this k v]
+      (println "assoc" this)
+      (make-foo (merge attrs this {k v})))))
+      ; (if (= vx (this k))
+      ;   this
+      ;   (do
+      ;
+      ;     (assoc this k v))))))
+
+      ; (merge this {k v})
+      ; (replace {k v} this))))
+      ; (assoc  key val))))
+      ; ((clojure.core/assoc this k v)))))
+    ; (contains? [k] false)))
+
+(println (assoc (assoc (make-foo {:one :asdf}) :one :bar) :one :fez))
+
 (deftest defstrukt
 
   (testing "constructed with no arguments"
