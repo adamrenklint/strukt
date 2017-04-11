@@ -1,6 +1,7 @@
 (ns strukt.core-test
   (:require [cljs.test :refer-macros [is are testing deftest]]
             [strukt.core :refer-macros [defstrukt]]
+            [prost.core :refer-macros [shape!]]
             [cljs.spec :as s]))
 
 (defn should
@@ -9,32 +10,44 @@
     (doseq [[actual expected] (partition 2 assertions)]
       (is (= expected actual)))))
 
-(s/def ::one (s/and integer? pos?))
+(s/def ::one (s/and number? pos?))
 (s/def ::two keyword?)
 (s/def ::three string?)
 (s/def ::fooish (s/keys :opt-un [::one ::two ::three]))
 (defstrukt foo ::fooish :two {:one 42 :two :fourty-two})
 
-; (defrecord Fooish [one])
+(def **validate-strukt** true)
+
 (defn make-foo [attrs]
-  (specify attrs
-    IAssociative
-    (-assoc [this k v]
-      (println "assoc" this)
-      (make-foo (merge attrs this {k v})))))
-      ; (if (= vx (this k))
-      ;   this
-      ;   (do
-      ;
-      ;     (assoc this k v))))))
+  (let [attrs (assoc attrs :type :foo)]
+    (if **validate-strukt**
+      (specify attrs
+        IAssociative
+        (-assoc [this k v]
+          (shape! "foo" ::fooish
+            (make-foo (merge attrs this {k v})))))
+      attrs)))
 
-      ; (merge this {k v})
-      ; (replace {k v} this))))
-      ; (assoc  key val))))
-      ; ((clojure.core/assoc this k v)))))
-    ; (contains? [k] false)))
 
-(println (assoc (assoc (make-foo {:one :asdf}) :one :bar) :one :fez))
+(defn now [] (.now js/performance))
+
+(defn run [m]
+  (println (reduce #(let [start (now)
+                          _ (assoc m :one (+ 1 %2))
+                          end (now)]
+                     (+ %1 (- end start)))
+                   0
+                   (range 1000))))
+
+
+(run (make-foo {:one 42 :two :fourty-two}))
+; 36.22849899999906 (66x slower)
+(run {:one 42 :two :fourty-two})
+; 0.5453139999999337
+
+
+
+
 
 (deftest defstrukt
 
