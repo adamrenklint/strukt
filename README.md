@@ -37,9 +37,9 @@ ClojureScript map factory with shape validation using [prost](https://github.com
 
 ; Having the spec attached means that we can easily call validation methods, without having to pass the spec all the time
 (valid? my-hat) ; => true
-(valid! my-hat) ; => {:type :hat :size 5 :color :red}
 (valid? (assoc my-hat :size :big)) ; => false
-(valid! (assoc my-hat :size :big)) ; => ; => invalid shape 'hat :size', expected :big to be number? via :strukt.example/hat > :strukt.example/size
+(valid! my-hat) ; => {:type :hat :size 5 :color :red}
+(valid! (assoc my-hat :size :big)) ; => invalid shape 'hat :size', expected :big to be number? via :strukt.example/hat > :strukt.example/size
 ```
 
 ## API
