@@ -25,6 +25,11 @@ ClojureScript map factory with shape validation using [prost](https://github.com
 ; Create a strukt with valid values
 (hat) ; => {:type :hat :size 5 :color :red}
 
+; The factory function takes many different forms of arguments to create a new strukt map
+(hat 12) ; => {:type :hat :size 12 :color :red}
+(hat :color :blue) ; => {:type :hat :size 5 :color :blue}
+(hat {:color :blue}) ; => {:type :hat :size 5 :color :blue}
+
 ; Try creating a strukt with invalid values
 (hat :size :big) ; => invalid shape 'hat :size', expected :big to be number? via :strukt.example/hat > :strukt.example/size
 
