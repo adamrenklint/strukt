@@ -11,7 +11,6 @@ ClojureScript map factory with shape validation using [prost](https://github.com
 ## Usage
 
 ```clojure
-; Import the 'defstrukt' macro
 (ns strukt.example
   (:require [strukt.core :refer-macros [defstrukt]
                          :refer [valid? valid!]]))
