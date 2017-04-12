@@ -13,7 +13,8 @@ ClojureScript map factory with shape validation using [prost](https://github.com
 ```clojure
 ; Import the 'defstrukt' macro
 (ns strukt.example
-  (:require [strukt.core :refer-macros [defstrukt]]))
+  (:require [strukt.core :refer-macros [defstrukt]
+                         :refer [valid? valid!]]))
 
 ; Create a spec to validate the shape
 (s/def ::color keyword?)
@@ -28,12 +29,31 @@ ClojureScript map factory with shape validation using [prost](https://github.com
 
 ; Try creating a strukt with invalid values
 (hat :size :big) ; => invalid shape 'hat :size', expected :big to be number? via :strukt.example/hat > :strukt.example/size
+
+; A strukt is just a map with its name and spec attached as meta data
+(def my-hat (hat))
+(-> my-hat meta :name) ; => "hat"
+(-> my-hat meta :spec) ; => ::hat
+
+; Having the spec attached means that we can easily call validation methods, without having to pass the spec all the time
+(valid? my-hat) ; => true
+(valid! my-hat) ; => {:type :hat :size 5 :color :red}
+(valid? (assoc my-hat :size :big)) ; => false
+(valid! (assoc my-hat :size :big)) ; => ; => invalid shape 'hat :size', expected :big to be number? via :strukt.example/hat > :strukt.example/size
 ```
 
 ## API
 
-- defstrukt [name spec primary-key default-attrs] => fn => strukt
-- defstrukt [name type spec primary-key default-attrs] => fn => strukt
+### Macros
+
+- defstrukt [name spec primary-key defaults] => defn => strukt
+- defstrukt [name type spec primary-key defaults] => defn => strukt
+- strukt* [name type spec primary-key defaults] => fn => strukt
+
+### Functions
+
+- valid? [strukt] => bool
+- valid! [strukt] => strukt | throw error
 
 ## Develop
 

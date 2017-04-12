@@ -1,6 +1,6 @@
 (ns strukt.core-test
   (:require [cljs.test :refer-macros [is are testing deftest]]
-            [strukt.core :refer-macros [defstrukt]]
+            [strukt.core :as strukt :refer-macros [defstrukt]]
             [cljs.spec :as s]))
 
 (defn should
@@ -57,3 +57,29 @@
       (is (thrown-with-msg? js/TypeError
                             #"invalid shape \'foo \:three\', expected \-89 to be string\? via \:strukt\.core\-test/fooish > \:strukt\.core\-test/three"
                             (foo {:one 64 :three -89}))))))
+
+(deftest valid?
+  (let [m (foo)]
+    (testing "with valid values"
+      (should "return true" true (strukt/valid? m)))
+    (testing "with invalid value"
+      (should "return false" false (strukt/valid? (assoc m :one -64))))))
+
+(deftest valid!
+  (let [m (foo)]
+    (testing "with valid values"
+      (should "return the strukt" m (strukt/valid! m)))
+    (testing "with invalid value"
+      (is (thrown-with-msg? js/TypeError
+                            #"invalid shape \'foo \:one\', expected \-64 to be pos\? via \:strukt\.core\-test/fooish > \:strukt\.core\-test/one"
+                            (strukt/valid! (assoc m :one -64)))))))
+
+(deftest ->strukt
+  (let [m (foo)]
+    (testing "attach meta data"
+      (should "attach :name"
+        "foo" (-> m meta :name))
+      (should "attach :type"
+        ::foo (-> m meta :type))
+      (should "attach :spec"
+        ::fooish (-> m meta :spec)))))
