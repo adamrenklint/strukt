@@ -12,8 +12,7 @@ ClojureScript map factory with shape validation using [prost](https://github.com
 
 ```clojure
 (ns strukt.example
-  (:require [strukt.core :refer-macros [defstrukt]
-                         :refer [valid? valid!]]))
+  (:require [strukt.core :refer-macros [defstrukt] :refer [valid? valid!]]))
 
 ; Create a spec to validate the shape
 (s/def ::color keyword?)
