@@ -49,14 +49,14 @@ ClojureScript map factory with shape validation using [prost](https://github.com
 
 ### Macros
 
-- defstrukt [name spec primary-key defaults] => defn => strukt
-- defstrukt [name type spec primary-key defaults] => defn => strukt
-- strukt* [name type spec primary-key defaults] => fn => strukt
+- `defstrukt [name spec primary-key defaults] => defn => strukt`
+- `defstrukt [name type spec primary-key defaults] => defn => strukt`
+- `strukt* [name type spec primary-key defaults] => fn => strukt`
 
 ### Functions
 
-- valid? [strukt] => bool
-- valid! [strukt] => strukt | throw error
+- `valid? [strukt] => bool`
+- `valid! [strukt] => strukt | throw error`
 
 ## Develop
 
