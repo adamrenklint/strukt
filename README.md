@@ -49,7 +49,7 @@ ClojureScript map factory with shape validation using [prost](https://github.com
 
 ### Macros
 
-#### `defstrukt [name spec primary-key defaults] => defn => m`<br>`defstrukt [name type spec primary-key defaults] => defn => m`
+#### `defstrukt [name spec primary-key defaults] => defn => m`<br><br>`defstrukt [name type spec primary-key defaults] => defn => m`
 
 Define a strukt map factory as fn *name* in current namespace. *type* is optionally a keyword, or the *name* will be keywordized and used. *spec* is a keyword pointing to a spec definiton in the spec registry. *primary-key* is a keyword that represents the main field on the strukt, and will be used for the shorthand primary-key value factory. *defaults* is a map of default values.
 
