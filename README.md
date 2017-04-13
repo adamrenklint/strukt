@@ -49,21 +49,36 @@ ClojureScript map factory with shape validation using [prost](https://github.com
 
 ### Macros
 
-- `defstrukt [name spec primary-key defaults] => defn => strukt`
-- `defstrukt [name type spec primary-key defaults] => defn => strukt`
-- `strukt* [name type spec primary-key defaults] => fn => strukt`
+### `defstrukt [name spec primary-key defaults] => defn => m`<br>`defstrukt [name type spec primary-key defaults] => defn => m`
+
+Define a strukt map factory as fn *name* in current namespace. *type* is optionally a keyword, or the *name* will be keywordized and used. *spec* is a keyword pointing to a spec definiton in the spec registry. *primary-key* is a keyword that represents the main field on the strukt, and will be used for the shorthand primary-key value factory. *defaults* is a map of default values.
+
+### `strukt* [name type spec primary-key defaults] => fn => m`
+
+Create a strukt map factory with *name*. *type* is a keyword and will be used to identify the type of strukt. *spec* is a keyword pointing to a spec definiton in the spec registry. *primary-key* is a keyword that represents the main field on the strukt, and will be used for the shorthand primary-key value factory. *defaults* is a map of default values.
+
+Returns a strukt map factory fn that can be called with no arguments, a single value to associated with *primary-key*, a map of keys and values, or variadic keyword arguments.
 
 ### Functions
 
-- `valid? [strukt] => bool`
-- `valid! [strukt] => strukt | throw error`
+#### `valid? [m] => bool`
+
+Check if map *m* conforms to its spec, which is attached as meta data. Returns true or false.
+
+#### `valid! [m] => m | nil`
+
+Check if map *m* conforms to its spec, which is attached as meta data. Returns the map if true, and throws an error if false.
+
+#### `->strukt [name spec m] => m`
+
+Attach *name* and *spec* to map strukt *m* as meta data.
 
 ## Develop
 
-- `boot test`
-- `boot watch-test`
-- `boot fmt`
-- `boot release`
+- `boot test` - run tests
+- `boot watch-test` - watch and run tests
+- `boot fmt` - format source with cljfmt
+- `boot release` - build and push release to Clojars
 
 ## License
 

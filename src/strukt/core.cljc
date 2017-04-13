@@ -1,6 +1,9 @@
 (ns strukt.core)
 
 (defmacro strukt*
+  "Create a strukt map factory with *name*. *type* is a keyword and will be used to identify the type of strukt. *spec* is a keyword pointing to a spec definiton in the spec registry. *primary-key* is a keyword that represents the main field on the strukt, and will be used for the shorthand primary-key value factory. *defaults* is a map of default values.
+
+  Returns a strukt map factory fn that can be called with no arguments, a single value to associated with *primary-key*, a map of keys and values, or variadic keyword arguments."
   [name type spec primary-key defaults]
   `(fn ~name
      ([]
