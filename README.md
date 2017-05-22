@@ -5,7 +5,7 @@ ClojureScript map factory with shape validation using [prost](https://github.com
 [![CircleCI](https://circleci.com/gh/adamrenklint/strukt.svg?style=svg)](https://circleci.com/gh/adamrenklint/strukt)
 
 ```clojure
-[adamrenklint/strukt "1.0.0"] ;; latest release
+[adamrenklint/strukt "1.1.0"] ;; latest release
 ```
 
 ## Usage
