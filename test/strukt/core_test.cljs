@@ -1,7 +1,7 @@
 (ns strukt.core-test
   (:require [cljs.test :refer-macros [is are testing deftest]]
             [strukt.core :as strukt :refer-macros [defstrukt]]
-            [cljs.spec :as s]))
+            [cljs.spec.alpha :as s]))
 
 (defn should
   [desc & assertions]

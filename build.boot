@@ -1,10 +1,10 @@
 (def project 'adamrenklint/strukt)
-(def version "1.0.0")
+(def version "1.1.0")
 
 (set-env!
  :source-paths #{"src"}
- :dependencies '[[org.clojure/clojurescript   "1.9.494"]
-                 [adamrenklint/prost          "1.0.0"]
+ :dependencies '[[org.clojure/clojurescript   "1.9.542"]
+                 [adamrenklint/prost          "1.1.0"]
                  [adzerk/bootlaces            "0.1.13" :scope "test"]
                  [crisptrutski/boot-cljs-test "0.3.0"  :scope "test"]
                  [adamrenklint/boot-fmt       "1.1.0"  :scope "test"]])
